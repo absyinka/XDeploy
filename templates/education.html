@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  {% for blog in education %}
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-6">
+          <div class="row">
+            <img src="{{ blog.image.url }}" alt="Img" class="rounded ms-3 mb-2 me-5" height="250" width="250" style="object-fit:cover;object-position: center;" />
+            <h4><a href="{% url 'detail' blog.slug %}">{{ blog.title }}</a></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

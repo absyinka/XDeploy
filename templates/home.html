@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <main class="container">
+      <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary ps-sm-4">
+        <div class="row gx-5">
+          <div class="col-lg-6 px-0 col-md-4">
+            <h1 class="display-4 fst-italic ps-sm-4">Title of a longer featured blog post</h1>
+            <p class="lead my-3 ps-sm-4">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post’s contents.</p>
+            <p class="lead mb-0 pb-sm-5">
+              <a href="#" class="text-body-emphasis fw-bold ps-sm-4">Continue reading...</a>
+            </p>
+          </div>
+          <div class="col-lg-6 col-md-8 d-flex justify-content-md-center align-items-md-center">
+            <img src="{% static 'img/upload/author_01.jpg' %}" alt="featured post" class="rounded img-fluid" />
+          </div>
+        </div>
+      </div>
+      {% comment %}Blog{% endcomment %}
+      <div class="row g-5">
+        <div class="col-md-8">
+          {% comment %}Blog Post{% endcomment %}
+          {% for post in object_list %}
+          <article class="blog-post">
+            <h2 class="display-5 link-body-emphasis mb-1">{{ post.title }}</h2>
+            <img src="{{ post.image.url }}" alt="" width="400" height="400" style="object-fit: cover;">
+            <p class="blog-post-meta">
+              {{ post.date_created}} <a href="#">{{ post.author }}</a>
+            </p>
+            <p>
+              {{ post.body|truncatechars:30|safe}}
+            </p>
+          </article>
+          {% endfor %}
+
+          {% comment %}Pagination{% endcomment %}
+          {% include 'pagination.html' with page=page_obj %}
+        </div>
+        {% comment %}About Author{% endcomment %}
+        <div class="col-md-4">
+          <div class="position-sticky" style="top: 2rem;">
+            <div class="p-4 mb-3 bg-body-tertiary rounded">
+              <h4 class="fst-italic">About</h4>
+              <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+            </div>
+            {% comment %}Recent Posts{% endcomment %}
+            <div>
+              <h4 class="fst-italic">Recent posts</h4>
+              <ul class="list-unstyled">
+                {% for post in recent_posts %}
+                  <li>
+                    <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="{% url 'detail' post.slug %}">
+                      <img src="{{ post.image.url }}" alt="image" height="96" width="100" style="object-fit: cover;" />
+                      <div class="col-lg-8">
+                        <h6 class="mb-0">{{ post.title }}</h6>
+                        <small class="text-body-secondary">{{ post.date_created }}</small>
+                      </div>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% comment %}Advertisement{% endcomment %}
+            <div class="p-4">
+              <h2 class="widget-title">Advertising</h2>
+              <div class="banner-spot clearfix">
+                <div class="banner-img">
+                  <img src="{% static 'img/upload/banner_03.jpg' %}" alt="" class="img-fluid" />
+                </div>
+                <!-- end banner-img -->
+              </div>
+              <!-- end banner -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+{% endblock %}
