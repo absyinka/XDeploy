@@ -18,11 +18,7 @@ services:
 
   web:
     container_name: DevBlog
-    build: 
-      context: .
-      args:
-        - SECRET_KEY=${SECRET_KEY}
-        - DEBUG=${DEBUG}
+    build: .
     env_file:
       - .env
     volumes:
