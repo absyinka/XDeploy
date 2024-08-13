@@ -1,0 +1,11 @@
+DbNAME=BlogDb
+DbUSER=postgres
+DbPASSWORD="html5001#"
+DbHOST=db
+DbPORT=5432
+SECRET_KEY="!3a%5qh9u8y=wzd9=yq57)9=)#y%$974p&_a9bke9u2h65(9xx"
+DEBUG=false
+
+DJANGO_SUPERUSER_USERNAME=admin
+DJANGO_SUPERUSER_PASSWORD="Adminpassword@123"
+DJANGO_SUPERUSER_EMAIL=absyinka@gmail.com
