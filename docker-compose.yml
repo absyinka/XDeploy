@@ -4,6 +4,8 @@ services:
   db:
     container_name: postgresDb
     image: postgres:15-alpine
+    env_file:
+      - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
@@ -17,6 +19,8 @@ services:
   web:
     container_name: DevBlog
     build: .
+    env_file:
+      - .env
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
