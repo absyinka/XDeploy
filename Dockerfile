@@ -29,9 +29,11 @@ RUN chmod +x /app/entrypoint.sh
 
 # Pass build-time arguments
 ARG SECRET_KEY
+ARG DEBUG
 
 # Set environment variables
 ENV SECRET_KEY=$SECRET_KEY
+ENV DEBUG=${DEBUG}
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
