@@ -23,8 +23,9 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and push Docker images
-      run: docker compose build --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} && docker compose push
+      run: docker compose build && docker compose push
       env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
         DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
 
