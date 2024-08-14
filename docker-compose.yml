@@ -3,7 +3,9 @@ version: '3.8'
 services:
   db:
     container_name: postgresDb
-    image: postgres:15-alpine
+    build: .
+    image: absyinka/postgresdb:latest
+    dockerfile: Dockerfile.db
     env_file:
       - .env
     volumes:
