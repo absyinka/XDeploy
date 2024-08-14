@@ -26,17 +26,24 @@ module "security_group" {
   cidr_blocks = ["0.0.0.0/0"]
 }
 
-module "efs_db" {
-  source          = "./modules/efs"
-  creation_token  = "db_data"
-  subnet_id       = module.vpc.subnet1_id
-  security_groups = [module.security_group.security_group_id]
-}
+# module "efs_db" {
+#   source          = "./modules/efs"
+#   creation_token  = "db_data"
+#   subnet_id       = module.vpc.subnet1_id
+#   security_groups = [module.security_group.security_group_id]
+# }
 
-module "efs_static" {
+# module "efs_static" {
+#   source          = "./modules/efs"
+#   creation_token  = "static_data"
+#   subnet_id       = module.vpc.subnet2_id
+#   security_groups = [module.security_group.security_group_id]
+# }
+
+module "efs" {
   source          = "./modules/efs"
-  creation_token  = "static_data"
-  subnet_id       = module.vpc.subnet2_id
+  creation_token  = "efs-token"
+  subnet_id       = module.vpc.subnet1_id
   security_groups = [module.security_group.security_group_id]
 }
 
