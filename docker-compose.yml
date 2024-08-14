@@ -19,7 +19,7 @@ services:
   web:
     container_name: DevBlog
     build: .
-    image: absyinka/DevBlog:latest
+    image: absyinka/devblog:latest
     env_file:
       - .env
     volumes:
