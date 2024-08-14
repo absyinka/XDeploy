@@ -4,7 +4,8 @@ services:
   db:
     container_name: postgresDb
     build:
-      context: Dockerfile.db
+      context: .
+      dockerfile: Dockerfile.db
     image: absyinka/postgresdb:latest
     env_file:
       - .env
