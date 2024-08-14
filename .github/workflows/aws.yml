@@ -36,26 +36,9 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and push Docker images
-      run: |
-        echo 'import yaml
-        import subprocess
-
-        def build_and_push_images(docker_compose_file):
-          with open(docker_compose_file, "r") as f:
-            data = yaml.safe_load(f)
-
-          services = data["services"]
-
-          for service_name, service_config in services.items():
-            build_context = service_config.get("build", ".")
-            image_name = f"{DOCKERHUB_USERNAME}/{service_name}:latest"
-
-            subprocess.run(["docker", "build", "-t", image_name, build_context])
-            subprocess.run(["docker", "push", image_name])
-
-        # Example usage in GitHub Actions:
-        if __name__ == "__main__":
-          build_and_push_images("docker-compose.yml")' > build_and_push.py
+      run: | 
+        docker-compose build
+        docker-compose push
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
