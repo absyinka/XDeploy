@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/master' && contains(join(github.event.commits.*.message, ' '), '[deploy]')
     runs-on: ubuntu-latest
 
     steps:
