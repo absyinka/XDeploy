@@ -47,3 +47,18 @@ variable "security_groups" {
   description = "A list of security group IDs for the ECS service"
   type        = list(string)
 }
+
+variable "postgres_file_system_id" {
+  description = "The ID of the EFS file system for PostgreSQL"
+  type        = string
+}
+
+variable "static_file_system_id" {
+  description = "The ID of the EFS file system for static files"
+  type        = string
+}
+
+variable "media_file_system_id" {
+  description = "The ID of the EFS file system for media files"
+  type        = string
+}

@@ -16,7 +16,7 @@ resource "aws_ecs_task_definition" "this" {
   volume {
     name = "postgres_data"
     efs_volume_configuration {
-      file_system_id = module.efs.postgres_file_system_id
+      file_system_id = var.postgres_file_system_id
       root_directory = "/var/lib/postgresql/data/"
     }
   }
@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "this" {
   volume {
     name = "static_volume"
     efs_volume_configuration {
-      file_system_id = module.efs.static_file_system_id
+      file_system_id = var.static_file_system_id
       root_directory = "/static"
     }
   }
@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "this" {
   volume {
     name = "media_volume"
     efs_volume_configuration {
-      file_system_id = module.efs.media_file_system_id
+      file_system_id = var.media_file_system_id
       root_directory = "/media"
     }
   }

@@ -52,4 +52,7 @@ module "ecs" {
   desired_count         = var.ecs_desired_count
   subnets               = [module.vpc.subnet1_id, module.vpc.subnet2_id]
   security_groups       = [module.security_group.security_group_id]
+  postgres_file_system_id = module.efs.postgres_file_system_id
+  static_file_system_id   = module.efs.static_file_system_id
+  media_file_system_id    = module.efs.media_file_system_id
 }
