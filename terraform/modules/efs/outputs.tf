@@ -1,7 +1,14 @@
-output "file_system_id" {
-  value = aws_efs_file_system.this.id
+output "postgres_file_system_id" {
+  description = "The ID of the EFS file system for PostgreSQL"
+  value       = aws_efs_file_system.postgres.id
 }
 
-output "mount_target_id" {
-  value = aws_efs_mount_target.this.id
+output "static_file_system_id" {
+  description = "The ID of the EFS file system for static files"
+  value       = aws_efs_file_system.static.id
+}
+
+output "media_file_system_id" {
+  description = "The ID of the EFS file system for media files"
+  value       = aws_efs_file_system.media.id
 }
