@@ -1,0 +1,105 @@
+[
+    {
+        "name": "postgresDb",
+        "image": "absyinka/postgresdb:latest",
+        "essential": true,
+        "memory": 512,
+        "cpu": 256,
+        "environment": [
+            {
+                "name": "POSTGRES_DB",
+                "value": "${DbNAME}"
+            },
+            {
+                "name": "POSTGRES_USER",
+                "value": "${DbUSER}"
+            },
+            {
+                "name": "POSTGRES_PASSWORD",
+                "value": "${DbPASSWORD}"
+            }
+        ],
+        "mountPoints": [
+            {
+                "sourceVolume": "postgres_data",
+                "containerPath": "/var/lib/postgresql/data/"
+            }
+        ],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "/ecs/postgresDb",
+                "awslogs-region": "eu-west-2",
+                "awslogs-stream-prefix": "ecs"
+            }
+        }
+    },
+    {
+        "name": "DevBlog",
+        "image": "absyinka/devblog:latest",
+        "essential": true,
+        "memory": 512,
+        "cpu": 256,
+        "portMappings": [
+            {
+                "containerPort": 8000,
+                "hostPort": 8000,
+                "protocol": "tcp"
+            }
+        ],
+        "environment": [
+            {
+                "name": "DbNAME",
+                "value": "${DbNAME}"
+            },
+            {
+                "name": "DbUSER",
+                "value": "${DbUSER}"
+            },
+            {
+                "name": "DbPASSWORD",
+                "value": "${DbPASSWORD}"
+            },
+            {
+                "name": "DbHOST",
+                "value": "${DbHOST}"
+            },
+            {
+                "name": "DbPORT",
+                "value": "${DbPORT}"
+            },
+            {
+                "name": "DEBUG",
+                "value": "${DEBUG}"
+            },
+            {
+                "name": "DJANGO_SETTINGS_MODULE",
+                "value": "core.settings"
+            }
+        ],
+        "mountPoints": [
+            {
+                "sourceVolume": "static_volume",
+                "containerPath": "/app/static"
+            },
+            {
+                "sourceVolume": "media_volume",
+                "containerPath": "/app/media"
+            }
+        ],
+        "dependsOn": [
+            {
+                "containerName": "postgresDb",
+                "condition": "START"
+            }
+        ],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "/ecs/DevBlog",
+                "awslogs-region": "eu-west-2",
+                "awslogs-stream-prefix": "ecs"
+            }
+        }
+    }
+]

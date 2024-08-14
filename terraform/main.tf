@@ -49,7 +49,7 @@ module "ecs" {
   execution_role_arn    = "arn:aws:iam::123456789012:role/ecsTaskExecutionRole"
   container_definitions = file("${path.module}/ecs_container_definitions.json")
   service_name          = "django-service"
-  desired_count         = 2
+  desired_count         = var.ecs_desired_count
   subnets               = [module.vpc.subnet1_id, module.vpc.subnet2_id]
   security_groups       = [module.security_group.security_group_id]
 }

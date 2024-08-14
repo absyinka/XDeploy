@@ -11,6 +11,31 @@ resource "aws_ecs_task_definition" "this" {
   execution_role_arn       = var.execution_role_arn
   task_role_arn            = var.execution_role_arn
   container_definitions    = var.container_definitions
+
+  # EFS-backed volumes
+  volume {
+    name = "postgres_data"
+    efs_volume_configuration {
+      file_system_id = module.efs_db.file_system_id
+      root_directory = "/var/lib/postgresql/data/"
+    }
+  }
+
+  volume {
+    name = "static_volume"
+    efs_volume_configuration {
+      file_system_id = module.efs_static.file_system_id
+      root_directory = "/static"
+    }
+  }
+
+  volume {
+    name = "media_volume"
+    efs_volume_configuration {
+      file_system_id = module.efs_media.file_system_id
+      root_directory = "/media"
+    }
+  }
 }
 
 resource "aws_ecs_service" "this" {
