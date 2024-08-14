@@ -3,8 +3,8 @@
         "name": "postgresDb",
         "image": "absyinka/postgresdb:latest",
         "essential": true,
-        "memory": 512,
-        "cpu": 256,
+        "memory": 256,
+        "cpu": 128,
         "environment": [
             {
                 "name": "POSTGRES_DB",
@@ -38,8 +38,8 @@
         "name": "DevBlog",
         "image": "absyinka/devblog:latest",
         "essential": true,
-        "memory": 512,
-        "cpu": 256,
+        "memory": 256,
+        "cpu": 128,
         "portMappings": [
             {
                 "containerPort": 8000,
