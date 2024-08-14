@@ -47,7 +47,7 @@ module "ecs" {
   cpu                   = "256"
   memory                = "512"
   execution_role_arn    = "arn:aws:iam::123456789012:role/ecsTaskExecutionRole"
-  container_definitions = file("${path.module}/ecs_container_definitions.json")
+  container_definitions = file("./modules/ecs/ecs_container_definitions.json")
   service_name          = "django-service"
   desired_count         = var.ecs_desired_count
   subnets               = [module.vpc.subnet1_id, module.vpc.subnet2_id]
