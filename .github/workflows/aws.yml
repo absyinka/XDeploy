@@ -37,10 +37,25 @@ jobs:
 
     - name: Build and push Docker images
       run: |
-        for service in $(docker-compose config --services); do
-          docker build -t "${{ secrets.DOCKERHUB_USERNAME }}/$service:latest" .
-          docker push "${{ secrets.DOCKERHUB_USERNAME }}/$service:latest"
-        done
+        echo 'import yaml
+        import subprocess
+
+        def build_and_push_images(docker_compose_file):
+          with open(docker_compose_file, "r") as f:
+            data = yaml.safe_load(f)
+
+          services = data["services"]
+
+          for service_name, service_config in services.items():
+            build_context = service_config.get("build", ".")
+            image_name = f"{DOCKERHUB_USERNAME}/{service_name}:latest"
+
+            subprocess.run(["docker", "build", "-t", image_name, build_context])
+            subprocess.run(["docker", "push", image_name])
+
+        # Example usage in GitHub Actions:
+        if __name__ == "__main__":
+          build_and_push_images("docker-compose.yml")' > build_and_push.py
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
