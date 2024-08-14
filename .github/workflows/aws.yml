@@ -37,10 +37,8 @@ jobs:
 
     - name: Build and push Docker images
       run: |
-        docker-compose build
         for service in $(docker-compose config --services); do
-          image_id=$(docker images | grep $service | awk '{print $3}')
-          docker tag $image_id "${{ secrets.DOCKERHUB_USERNAME }}/$service:latest"
+          docker build -t "${{ secrets.DOCKERHUB_USERNAME }}/$service:latest" .
           docker push "${{ secrets.DOCKERHUB_USERNAME }}/$service:latest"
         done
       env:
