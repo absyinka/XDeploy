@@ -29,13 +29,14 @@ jobs:
         echo "DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }}" >> .env
         echo "DJANGO_SUPERUSER_EMAIL=${{ secrets.DJANGO_SUPERUSER_EMAIL }}" >> .env
 
-    - name: Test Docker Login
-      run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-
     - name: Build and push Docker images
       run: | 
-        docker compose build 
-        docker compose push
+        docker-compose build 
+        for service in $(docker-compose config --services); do
+          image_id=$(docker images | grep $service | awk '{print $3}')
+          docker tag $image_id "${{ secrets.DOCKERHUB_USERNAME }}/$service:latest"
+          docker push "${{ secrets.DOCKERHUB_USERNAME }}/$service:latest"
+        done
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
