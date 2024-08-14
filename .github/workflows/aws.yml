@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[deploy]')
     runs-on: ubuntu-latest
 
     steps:
@@ -72,17 +73,6 @@ jobs:
     - name: Apply Terraform changes
       working-directory: ./terraform
       run: terraform apply -auto-approve
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    
-    - name: Wait for 3 minutes before destroying infrastructure
-      run: sleep 180
-
-    - name: Destroy Infrastructure
-      if: always()
-      working-directory: ./terraform
-      run: terraform destroy -auto-approve
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
