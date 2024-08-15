@@ -9,3 +9,13 @@ variable "ecs_desired_count" {
   type        = number
   default     = 2
 }
+
+variable "dockerhub_username" {
+  description = "Docker Hub username"
+  type        = string
+}
+
+variable "dockerhub_password" {
+  description = "Docker Hub password"
+  type        = string
+}

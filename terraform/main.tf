@@ -34,7 +34,16 @@ module "efs" {
 }
 
 module "iam_roles" {
-  source = "./modules/iam_roles"
+  source                    = "./modules/iam_roles"
+  dockerhub_credentials_arn = module.secrets_manager.dockerhub_credentials_arn
+}
+
+module "secrets_manager" {
+  source = "./modules/secrets_manager"
+
+  secret_name        = "dockerhub_credentials"
+  dockerhub_username = var.dockerhub_username
+  dockerhub_password = var.dockerhub_password
 }
 
 module "ecs" {
