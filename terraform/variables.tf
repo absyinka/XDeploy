@@ -15,7 +15,7 @@ variable "dockerhub_username" {
   type        = string
 }
 
-variable "dockerhub_password" {
-  description = "Docker Hub password"
+variable "dockerhub_token" {
+  description = "Docker Hub token"
   type        = string
 }

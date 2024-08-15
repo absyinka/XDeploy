@@ -9,8 +9,8 @@ variable "dockerhub_username" {
   sensitive   = true
 }
 
-variable "dockerhub_password" {
-  description = "Docker Hub Password"
+variable "dockerhub_token" {
+  description = "Docker Hub token"
   type        = string
   sensitive   = true
 }

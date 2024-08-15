@@ -43,7 +43,7 @@ module "secrets_manager" {
 
   secret_name        = "dockerhub_credentials"
   dockerhub_username = var.dockerhub_username
-  dockerhub_password = var.dockerhub_password
+  dockerhub_password = var.dockerhub_token
 }
 
 module "ecs" {
