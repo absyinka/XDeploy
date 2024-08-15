@@ -70,8 +70,10 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Apply Terraform changes
-      working-directory: ./terraform
-      run: terraform apply -auto-approve
       env:
+        TF_VAR_dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+        TF_VAR_dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      working-directory: ./terraform
+      run: terraform apply -auto-approve

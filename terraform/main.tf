@@ -40,10 +40,9 @@ module "iam_roles" {
 
 module "secrets_manager" {
   source = "./modules/secrets_manager"
-
   secret_name        = "dockerhub_credentials"
   dockerhub_username = var.dockerhub_username
-  dockerhub_password = var.dockerhub_token
+  dockerhub_token = var.dockerhub_token
 }
 
 module "ecs" {
