@@ -63,6 +63,9 @@ jobs:
       run: terraform init
 
     - name: Terraform Plan
+      env:
+        TF_VAR_dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+        TF_VAR_dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
       working-directory: ./terraform
       run: terraform plan
       env:
