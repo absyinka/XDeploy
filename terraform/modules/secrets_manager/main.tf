@@ -1,5 +1,9 @@
 resource "aws_secretsmanager_secret" "dockerhub_credentials" {
   name = var.secret_name
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes = [name]
+  }
 }
 
 resource "aws_secretsmanager_secret_version" "dockerhub_credentials" {
