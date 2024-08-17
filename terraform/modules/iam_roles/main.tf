@@ -10,10 +10,21 @@ resource "aws_iam_role" "ecs_task_execution_role" {
         Principal = {
           Service = "ecs-tasks.amazonaws.com"
         }
-      },
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "ecs_task_execution_role_policy" {
+  name = "ecsTaskExecutionRolePolicy"
+  role = aws_iam_role.ecs_task_execution_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
       {
-        Effect = "Allow",
         Action = "secretsmanager:GetSecretValue",
+        Effect = "Allow",
         Resource = var.dockerhub_credentials_arn
       }
     ]
