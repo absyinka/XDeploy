@@ -91,8 +91,13 @@ jobs:
 
     - name: Build and push Docker images
       run: | 
-        docker-compose build
-        docker-compose push
+        docker-compose build devblog
+        docker tag devblog:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/devblog-repo:latest
+        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/devblog-repo:latest
+
+        docker-compose build postgresdb
+        docker tag postgresdb:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/postgresdb-repo:latest
+        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/postgresdb-repo:latest
     
     # Health check for ECS services
     - name: Check ECS Service Health

@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.db
-    image: absyinka/postgresdb:latest
+    image: postgresdb:latest
     env_file:
       - .env
     volumes:
@@ -22,7 +22,7 @@ services:
   web:
     container_name: DevBlog
     build: .
-    image: absyinka/devblog:latest
+    image: devblog:latest
     env_file:
       - .env
     volumes:
