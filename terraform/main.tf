@@ -34,17 +34,16 @@ module "efs" {
 }
 
 module "iam_roles" {
-  source                    = "./modules/iam_roles"
+  source = "./modules/iam_roles"
 }
 
 module "alb_ecr" {
-  source          = "./modules/alb_ecr"
-  vpc_id          = module.vpc.vpc_id
-  subnet_ids      = [module.vpc.subnet1_id, module.vpc.subnet2_id]
-  ecr_repo_names  = ["devblog-repo", "postgresdb-repo"]
-  project_name    = "DevBlog"
+  source         = "./modules/alb_ecr"
+  vpc_id         = module.vpc.vpc_id
+  subnet_ids     = [module.vpc.subnet1_id, module.vpc.subnet2_id]
+  ecr_repo_names = ["devblog-repo", "postgresdb-repo"]
+  project_name   = "DevBlog"
 }
-
 
 module "ecs" {
   source                  = "./modules/ecs"
@@ -61,4 +60,5 @@ module "ecs" {
   postgres_file_system_id = module.efs.postgres_file_system_id
   static_file_system_id   = module.efs.static_file_system_id
   media_file_system_id    = module.efs.media_file_system_id
+  target_group_arn        = module.alb_ecr.alb_target_group_arn
 }

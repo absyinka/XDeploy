@@ -1,9 +1,9 @@
 output "ecs_cluster_name" {
-  value = module.ecs_module.ecs_cluster_name
+  value = module.ecs.ecs_cluster_name
 }
 
 output "ecs_service_name" {
-  value = module.ecs_module.ecs_service_name
+  value = module.ecs.ecs_service_name
 }
 
 output "alb_dns_name" {

@@ -10,3 +10,8 @@ output "ecr_repository_urls" {
   description = "The URLs of the ECR repositories"
   value       = { for repo in aws_ecr_repository.app_repo : repo.name => repo.repository_url }
 }
+
+output "alb_target_group_arn" {
+  description = "The ARN of the ALB target group"
+  value       = aws_lb_target_group.app_tg.arn
+}

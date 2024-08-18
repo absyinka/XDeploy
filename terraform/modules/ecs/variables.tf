@@ -62,3 +62,8 @@ variable "media_file_system_id" {
   description = "The ID of the EFS file system for media files"
   type        = string
 }
+
+variable "target_group_arn" {
+  description = "The ARN of the target group for the ECS service"
+  type        = string
+}
