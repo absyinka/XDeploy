@@ -35,15 +35,16 @@ module "efs" {
 
 module "iam_roles" {
   source                    = "./modules/iam_roles"
-  dockerhub_credentials_arn = module.secrets_manager.dockerhub_credentials_arn
 }
 
-module "secrets_manager" {
-  source             = "./modules/secrets_manager"
-  secret_name        = "dockerhub_cred"
-  dockerhub_username = var.dockerhub_username
-  dockerhub_token    = var.dockerhub_token
+module "alb_ecr" {
+  source          = "./modules/alb_ecr"
+  vpc_id          = module.vpc.vpc_id
+  subnet_ids      = [module.vpc.subnet1_id, module.vpc.subnet2_id]
+  ecr_repo_names  = ["devblog-repo", "postgresdb-repo"]
+  project_name    = "DevBlog"
 }
+
 
 module "ecs" {
   source                  = "./modules/ecs"

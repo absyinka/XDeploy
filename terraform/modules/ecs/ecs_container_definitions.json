@@ -1,7 +1,7 @@
 [
     {
         "name": "postgresDb",
-        "image": "absyinka/postgresdb:latest",
+        "image": "xdeploy/postgresdb:latest",
         "essential": true,
         "memory": 256,
         "cpu": 128,
@@ -36,7 +36,7 @@
     },
     {
         "name": "DevBlog",
-        "image": "absyinka/devblog:latest",
+        "image": "xdeploy/devblog:latest",
         "essential": true,
         "memory": 256,
         "cpu": 128,

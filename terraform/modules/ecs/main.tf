@@ -49,4 +49,10 @@ resource "aws_ecs_service" "this" {
     subnets         = var.subnets
     security_groups = var.security_groups
   }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.app_tg.arn
+    container_name   = "DevBlog"  
+    container_port   = 8000      
+  }
 }
