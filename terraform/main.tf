@@ -40,7 +40,7 @@ module "iam_roles" {
 module "alb_ecr" {
   source         = "./modules/alb_ecr"
   vpc_id         = module.vpc.vpc_id
-  subnet_ids     = [module.vpc.subnet1_id, module.vpc.subnet2_id]
+  subnet_ids     = [module.vpc.public_subnet_1_id, module.vpc.public_subnet_2_id]
   ecr_repo_names = ["devblog-repo", "postgresdb-repo"]
   project_name   = "DevBlog"
 }
