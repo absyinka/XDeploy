@@ -14,7 +14,7 @@ resource "aws_subnet" "subnet2" {
 
 resource "aws_subnet" "public_subnet_1" {
   vpc_id                  = aws_vpc.this.id
-  cidr_block              = "10.0.1.0/24"
+  cidr_block              = "10.0.10.0/24"
   availability_zone       = "eu-west-2a"
   map_public_ip_on_launch = true
 
@@ -25,7 +25,7 @@ resource "aws_subnet" "public_subnet_1" {
 
 resource "aws_subnet" "public_subnet_2" {
   vpc_id                  = aws_vpc.this.id
-  cidr_block              = "10.0.2.0/24"
+  cidr_block              = "10.0.20.0/24"
   availability_zone       = "eu-west-2b"
   map_public_ip_on_launch = true
 
@@ -65,6 +65,13 @@ resource "aws_route" "default_route" {
   route_table_id         = aws_route_table.public.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.this.id
+
+  lifecycle {
+    ignore_changes = [
+      destination_cidr_block,
+      gateway_id,
+    ]
+  }
 }
 
 resource "aws_route_table_association" "subnet1" {
