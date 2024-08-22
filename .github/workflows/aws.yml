@@ -42,8 +42,8 @@ jobs:
       id: outputs
       working-directory: ./terraform
       run: |
-        ::set-env name=CLUSTER_NAME::$(terraform output -raw ecs_cluster_name)
-        ::set-env name=SERVICE_NAME::$(terraform output -raw ecs_service_name)
+        echo "CLUSTER_NAME=$(terraform output -raw ecs_cluster_name | tr -d '\r')" >> $GITHUB_ENV
+        echo "SERVICE_NAME=$(terraform output -raw ecs_service_name | tr -d '\r')" >> $GITHUB_ENV
 # echo "CLUSTER_NAME=$(terraform output -raw ecs_cluster_name)" >> $GITHUB_ENV
 # echo "SERVICE_NAME=$(terraform output -raw ecs_service_name)" >> $GITHUB_ENV
 
