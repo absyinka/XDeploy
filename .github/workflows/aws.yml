@@ -38,14 +38,19 @@ jobs:
       working-directory: ./terraform
       run: terraform apply -auto-approve
 
+    - name: Manually Check Outputs
+      id: outputchecks
+      working-directory: ./terraform
+      run: terraform output -raw ecs_cluster_name
+
     - name: Capture ECS Cluster and Service Name
       id: outputs
       working-directory: ./terraform
       run: |
-        echo "CLUSTER_NAME=$(terraform output -raw ecs_cluster_name | tr -d '\r')" >> $GITHUB_ENV
-        echo "SERVICE_NAME=$(terraform output -raw ecs_service_name | tr -d '\r')" >> $GITHUB_ENV
-# echo "CLUSTER_NAME=$(terraform output -raw ecs_cluster_name)" >> $GITHUB_ENV
-# echo "SERVICE_NAME=$(terraform output -raw ecs_service_name)" >> $GITHUB_ENV
+        CLUSTER_NAME=$(terraform output -raw ecs_cluster_name | tr -d '\r')
+        SERVICE_NAME=$(terraform output -raw ecs_service_name | tr -d '\r')
+        echo "CLUSTER_NAME=${CLUSTER_NAME}" >> $GITHUB_ENV
+        echo "SERVICE_NAME=${SERVICE_NAME}" >> $GITHUB_ENV
 
     - name: Print GITHUB_ENV file
       run: |
