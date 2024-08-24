@@ -42,10 +42,13 @@ jobs:
       id: outputs
       working-directory: ./terraform
       run: |
-        CLUSTER_NAME=$(terraform output -raw ecs_cluster_name | cut -d':' -f1)
-        SERVICE_NAME=$(terraform output -raw ecs_service_name | cut -d':' -f1)
+        CLUSTER_NAME=$(terraform output -raw ecs_cluster_name | tr -d '\n\r')
         echo "CLUSTER_NAME=$CLUSTER_NAME" >> $GITHUB_ENV
-        echo "SERVICE_NAME=$SERVICE_NAME" >> $GITHUB_ENV
+
+# CLUSTER_NAME=$(terraform output -raw ecs_cluster_name | cut -d':' -f1)
+# SERVICE_NAME=$(terraform output -raw ecs_service_name | cut -d':' -f1)
+# echo "CLUSTER_NAME=$CLUSTER_NAME" >> $GITHUB_ENV
+# echo "SERVICE_NAME=$SERVICE_NAME" >> $GITHUB_ENV
 
     - name: Print GITHUB_ENV file
       run: |
